@@ -1,11 +1,14 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../utils/hooks";
+import type { User } from "../utils/userSlice";
+
+
 
 const Header = ()=> {
     const navigate = useNavigate();
-    const user = useSelector((store) => store.user);
+    const user = useAppSelector((store): User | null => store.user);
     const handleSignOut = () => {
         signOut(auth).then(()=>{
             navigate("/");
@@ -23,7 +26,7 @@ const Header = ()=> {
             {user && (<div className="flex">
                 <img
                     alt="usericon"
-                    src="https://netflixproject-mu.vercel.app/user-icon.png"
+                    src={user?.photoURL || "/user-icon.png"}
                 />
                 <button
                     onClick={handleSignOut} 

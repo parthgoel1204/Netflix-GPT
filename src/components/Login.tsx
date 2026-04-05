@@ -38,10 +38,19 @@ const Login = () => {
                     displayName: name.current?.value || "",
                     photoURL: "https://avatars.githubusercontent.com/u/161957467?v=4",
                 })
-                .then(()=> {
-                    const {uid, email, displayName ,photoURL} = auth.currentUser;
-                    dispatch(addUser({uid : uid, email:email , displayName:displayName, photoURL:photoURL}));
-                    console.log(user);
+                .then(() => {
+                    const user = auth.currentUser;
+
+                    if (!user) return;
+
+                    dispatch(
+                        addUser({
+                            uid: user.uid,
+                            email: user.email,
+                            displayName: user.displayName,
+                            photoURL: user.photoURL,
+                        })
+                    );
                     navigate("/browse");
                 })
                 .catch((error) => { 
