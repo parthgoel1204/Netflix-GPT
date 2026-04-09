@@ -13,13 +13,13 @@ const Header = ()=> {
     const user = useAppSelector((store): User | null => store.user);
     const handleSignOut = () => {
         signOut(auth).then(()=>{})
-        .catch(()=>[
-            navigate("/error"),
-        ]);
+        .catch(() => {
+            navigate("/error");
+        });
     };
 
      useEffect(()=> {
-        onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 // User is signed in, see docs for a list of available properties
                 // https://firebase.google.com/docs/reference/js/auth.user
@@ -31,7 +31,9 @@ const Header = ()=> {
                 navigate("/");
             }
         });
-    },[dispatch]);
+
+        return () => unsubscribe();
+    },[dispatch,navigate]);
 
     return(
         <div className="absolute w-screen px-8 py-6 bg-linear-to-b from-black z-10 flex justify-between">
