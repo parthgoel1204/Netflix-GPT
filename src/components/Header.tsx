@@ -6,6 +6,7 @@ import type { User } from "../utils/userSlice";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
+import { USER_AVATAR } from "../utils/constants";
 
 const Header = ()=> {
     const navigate = useNavigate();
@@ -45,7 +46,7 @@ const Header = ()=> {
             {user && (<div className="flex">
                 <img
                     alt="usericon"
-                    src={user?.photoURL || "/user-icon.png"}
+                    src={user?.photoURL || USER_AVATAR}
                     className="w-10 h-10 rounded-md"
                 />
                 <button

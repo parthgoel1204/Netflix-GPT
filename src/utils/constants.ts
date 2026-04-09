@@ -1,0 +1,1 @@
+export const USER_AVATAR: string = "https://netflixproject-mu.vercel.app/user-icon.png"
