@@ -4,7 +4,6 @@ const Browse = () => {
     <>
     <Header/>
     Browse
-
     </>
     )
 };
