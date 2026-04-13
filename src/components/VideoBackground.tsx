@@ -24,7 +24,7 @@ const VideoBackground = ({movieId}:VideoBackgroundProps) => {
             picture-in-picture; web-share" 
             referrerPolicy="strict-origin-when-cross-origin" 
             allowFullScreen></iframe>
-            <div className="absolute inset-0 bg-linear-to-r from-black via-black/40 to-transparent" />
+            {/* <div className="absolute inset-0 bg-linear-to-r from-black via-black/40 to-transparent" /> */}
         </div>
     );
 };
