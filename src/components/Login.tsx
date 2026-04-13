@@ -29,7 +29,11 @@ const Login = () => {
         if(message) return;
 
         if(!isSignInForm){
-            createUserWithEmailAndPassword(auth,email.current?.value || "",password.current?.value || "")
+            createUserWithEmailAndPassword(
+                auth,
+                email.current?.value || "",
+                password.current?.value || ""
+            )
             .then((userCredential) => {
                 // Signed up 
                 const user = userCredential.user;
@@ -58,22 +62,22 @@ const Login = () => {
                 
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                setErrorMessage(errorCode + "-" + errorMessage);
+                setErrorMessage(error.code + "-" + error.message);
             });
         }
         else{
-            signInWithEmailAndPassword(auth,email.current?.value || "",password.current?.value || "")
-            .then((userCredential) => {
+            signInWithEmailAndPassword(
+                auth,
+                email.current?.value || "",
+                password.current?.value || ""
+            )
+            .then(() => {
                 // Signed in 
-                const user = userCredential.user;
-                console.log(user);
+                // const user = userCredential.user;
+                // console.log(user);
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                setErrorMessage(errorCode + "-" + errorMessage);
+                setErrorMessage(error.code + "-" + error.message);
             });
         }
     };
