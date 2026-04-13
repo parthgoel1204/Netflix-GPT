@@ -37,7 +37,7 @@ const Header = ()=> {
     },[dispatch,navigate]);
 
     return(
-        <div className="absolute top-0 w-screen px-8 py-6 bg-linear-to-b from-black z-20 flex justify-between">
+        <div className="absolute top-0 left-0 right-0 px-8 py-6 bg-linear-to-b from-black z-20 flex justify-between">
             <img 
                 src="/netflix.svg" 
                 alt="Netflix Logo" 
