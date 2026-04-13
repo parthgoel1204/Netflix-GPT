@@ -9,16 +9,22 @@ const MainContainer = () => {
 
     if (!movies) return null;
 
-    const mainMovie = movies[3];
+    const mainMovie = movies[5];
 
     // console.log(mainMovie);
 
-    const {original_title , overview}  = mainMovie;
+    const {original_title , overview , id}  = mainMovie;
 
     return (
-        <div>
-            <VideoTitle title = {original_title} overview = {overview} />
-            <VideoBackground  />
+        <div className="relative h-screen">
+            <VideoBackground movieId={id} />
+
+            <div className="absolute top-0 left-0 w-full h-full z-10">
+                <VideoTitle 
+                    title={original_title} 
+                    overview={overview} 
+                />
+            </div>
         </div>
     );
 };
