@@ -6,7 +6,7 @@ import type { User } from "../utils/userSlice";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
-import { USER_AVATAR } from "../utils/constants";
+import { SUPPORTED_LANGUAGES, USER_AVATAR } from "../utils/constants";
 import { toggleGptSearchView } from "../utils/gptSlice";
 
 const Header = ()=> {
@@ -49,6 +49,9 @@ const Header = ()=> {
             />
             {user && (
             <div className="flex">
+                <select className="p-2 bg-gray-900 text-white rounded-lg m-2">
+                    {SUPPORTED_LANGUAGES.map(lang => <option key={lang.identifier} value={lang.identifier}>{lang.name}</option>)}
+                </select>
                 <button className="py-2 px-4 mx-4 bg-purple-800 text-white rounded-lg hover:cursor-pointer"
                 onClick={handleGptSearchClick}>
                     GPT Search
