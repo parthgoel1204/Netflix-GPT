@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 import { USER_AVATAR } from "../utils/constants";
+import { toggleGptSearchView } from "../utils/gptSlice";
 
 const Header = ()=> {
     const navigate = useNavigate();
@@ -36,6 +37,9 @@ const Header = ()=> {
         return () => unsubscribe();
     },[dispatch,navigate]);
 
+    const handleGptSearchClick = () => {
+        dispatch(toggleGptSearchView());
+    }
     return(
         <div className="absolute top-0 left-0 right-0 px-8 py-6 bg-linear-to-b from-black z-20 flex justify-between">
             <img 
@@ -43,7 +47,12 @@ const Header = ()=> {
                 alt="Netflix Logo" 
                 className="w-40"
             />
-            {user && (<div className="flex">
+            {user && (
+            <div className="flex">
+                <button className="py-2 px-4 mx-4 bg-purple-800 text-white rounded-lg"
+                onClick={handleGptSearchClick}>
+                    GPT Search
+                </button>
                 <img
                     alt="usericon"
                     src={user?.photoURL || USER_AVATAR}
