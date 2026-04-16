@@ -49,7 +49,7 @@ const Header = ()=> {
             />
             {user && (
             <div className="flex">
-                <button className="py-2 px-4 mx-4 bg-purple-800 text-white rounded-lg"
+                <button className="py-2 px-4 mx-4 bg-purple-800 text-white rounded-lg hover:cursor-pointer"
                 onClick={handleGptSearchClick}>
                     GPT Search
                 </button>
