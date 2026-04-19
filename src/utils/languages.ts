@@ -11,6 +11,8 @@ const lang = {
         search: "Buscar",
         gptSearchPlaceholder: "¿Qué te gustaría ver hoy?",
     },
-};
+}as const;
+
+export type langKey = keyof typeof lang;
 
 export default lang;

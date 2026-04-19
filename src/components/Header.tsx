@@ -8,11 +8,13 @@ import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 import { SUPPORTED_LANGUAGES, USER_AVATAR } from "../utils/constants";
 import { toggleGptSearchView } from "../utils/gptSlice";
+import { changeLanguage } from "../utils/configSlice";
 
 const Header = ()=> {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useAppSelector((store): User | null => store.user);
+    const showGptSearch = useAppSelector((store) => store.gpt.showGptSearch);
     const handleSignOut = () => {
         signOut(auth).then(()=>{})
         .catch(() => {
@@ -40,6 +42,10 @@ const Header = ()=> {
     const handleGptSearchClick = () => {
         dispatch(toggleGptSearchView());
     }
+
+    const handleLanguageChange= (e: React.ChangeEvent<HTMLSelectElement>) => {
+        dispatch(changeLanguage(e.target.value));
+    }
     return(
         <div className="absolute top-0 left-0 right-0 px-8 py-6 bg-linear-to-b from-black z-20 flex justify-between">
             <img 
@@ -49,12 +55,17 @@ const Header = ()=> {
             />
             {user && (
             <div className="flex">
-                <select className="p-2 bg-gray-900 text-white rounded-lg m-2">
-                    {SUPPORTED_LANGUAGES.map(lang => <option key={lang.identifier} value={lang.identifier}>{lang.name}</option>)}
-                </select>
+                {showGptSearch && (<select className="p-2 bg-gray-900 text-white rounded-lg m-2 " onChange={handleLanguageChange}>
+                    {SUPPORTED_LANGUAGES.map(lang =>
+                         <option 
+                            key={lang.identifier} 
+                            value={lang.identifier}>
+                                {lang.name}
+                        </option>)}
+                </select>)}
                 <button className="py-2 px-4 mx-4 bg-purple-800 text-white rounded-lg hover:cursor-pointer"
                 onClick={handleGptSearchClick}>
-                    GPT Search
+                    {showGptSearch ? "Home Page" : "GPT Search"}
                 </button>
                 <img
                     alt="usericon"
