@@ -1,11 +1,13 @@
 import { useRef } from "react";
-import { useAppSelector } from "../utils/hooks";
+import { useAppDispatch, useAppSelector } from "../utils/hooks";
 import type { langKey } from "../utils/languages";
 import lang from "../utils/languages";
 import groq from "../utils/groq";
 import { API_OPTIONS } from "../utils/constants";
+import { addGptMovieResult } from "../utils/gptSlice";
 
 const GptSearchBar = () => {
+    const dispatch = useAppDispatch();
     const langKey = useAppSelector(
         (store) => store.config.lang
     ) as langKey;
@@ -20,7 +22,7 @@ const GptSearchBar = () => {
     }
 
     const handleGptSearchClick = async () => {
-        console.log(searchText.current?.value);
+        // console.log(searchText.current?.value);
 
         const query = "Act as a movie reccomendation system and suggest some movies for the query: " + searchText.current?.value + ". Only give me names of 5 movies all comma-separated like the example result given ahead. Example Result: Gadar, Sholay, Inception, Avengers Endgame, Dhurandar. ";
         const results = await groq.chat.completions.create({
@@ -32,13 +34,14 @@ const GptSearchBar = () => {
         ],
         model: "openai/gpt-oss-20b",
         });
-        console.log(results.choices?.[0]?.message?.content);
+        // console.log(results.choices?.[0]?.message?.content);
         const movies = results.choices?.[0]?.message?.content?.split(",");
 
         if(!movies) return;
         const promiseArray = movies?.map((movie:string) => searchMovieTMDB(movie));
         const tmdbResults = await Promise.all(promiseArray);
-        console.log(tmdbResults);
+        // console.log(tmdbResults);
+        dispatch(addGptMovieResult(tmdbResults));
         
     }
     return (
